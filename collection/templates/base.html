@@ -1,0 +1,44 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+    <title>
+        {% block title %}
+	        Anne's first website
+        {% endblock title %}
+    </title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?{% now "U" %}" />
+</head>
+<body>
+    <div class="page-header">
+        <h1>Welcome!</h1>
+    </div>
+    <header>
+		 <nav>
+			 <ul class="nav nav-tabs" id="Tab">
+				 <li {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %}>
+                     <a href="{% url 'home' %}">Home</a></li>
+				 <li {% if request.resolver_match.url_name == 'about' %}class="active"{% endif %}>
+                     <a href="{% url 'about' %}">About</a></li>
+				 <li {% if request.resolver_match.url_name == 'contact' %}class="active"{% endif %}>
+                     <a href="{% url 'contact' %}">Contact</a></li>
+                 <li {% if request.resolver_match.url_name == 'browse' %}class="active"{% endif %}>
+                     <a href="{% url 'browse' %}">Browse Entries</a></li>
+				 {% if user.is_authenticated %}
+				 <li {% if request.resolver_match.url_name == 'auth_logout' %}class="active"{% endif %}>
+                     <a href="{% url 'auth_logout' %}">Logout</a></li>
+				 {% else %}
+				 <li {% if request.resolver_match.url_name == 'auth_login' %}class="active"{% endif %}>
+                     <a href="{% url 'auth_login' %}">Login</a></li>
+				 <li {% if request.resolver_match.url_name == 'registration_register' %}class="active"{% endif %}>
+                     <a href="{% url 'registration_register' %}">Register</a></li>
+				 {% endif %}
+			 </ul>
+		 </nav>
+        {% block content %}{% endblock content %}
+        {% block footer %}{% endblock footer %}
+	 </header>
+</body>
+</html>

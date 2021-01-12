@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+	Contact - {{ block.super }}
+{% endblock title %}
+{% block content %}
+    <h2>Contact</h2>
+    <p>You can find me in the park eating acorns.</p>
+    <br>
+    <p>But you can also email me:</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+          <button type="submit">Send</button>
+        </div>
+    </form>
+{% endblock content %}

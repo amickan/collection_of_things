@@ -1,0 +1,117 @@
+ .page-header {
+    background-color: #5b6b25;
+    margin-top: 0;
+	margin-left: 0;
+    padding: 20px 20px 20px 40px;
+ }
+
+ body {
+ 	background-color: white;
+ 	/*background-image: url(../images/test2.jpg);*/
+ 	/*background-size: 100%;*/
+ 	/*width: window.screen.height;*/
+ 	/*height: window.screen.width;*/
+ }
+
+ header {
+	 padding-left: 40px;
+ }
+
+ .content {
+    margin-left: 40px;
+ }
+
+ .thing {
+    margin-bottom: 70px;
+}
+
+ h1{
+	 color: black;
+	 font-size: 36pt;
+	 padding-left: -20px;
+ }
+
+ form.as_p{
+	 color: black;
+	 font-size: 22pt;
+	 padding-left: 30px;
+ }
+
+ input2{
+	 color: black;
+	 font-size: 12pt;
+	 position: absolute;
+	 left: 120px
+ }
+
+ #submit {
+	 width:5em;
+	 height:1.5em;
+	 font-size: 12pt;
+     font-family: Garamond Serif;
+	 position: absolute;
+	 left: 180px
+     padding: 10px;
+ }
+
+ table{
+     font-size: 12pt;
+     font-family: Garamond Serif;
+     padding: 8px;
+     width: 60%;
+     vertical-align: top;
+ }
+
+ tr:hover {background-color: #f5f5f5;}
+ td:hover {background-color: #b14c4c;}
+
+td {
+    height: 50px;
+    vertical-align: top;
+    padding-top: 10px;
+    font-family: Garamond Serif;
+}
+
+.special_column { width: 120px; }
+
+th {
+    vertical-align: top;
+    padding-top: 10px;
+    font-family: Garamond Serif;
+}
+
+ li a:visited{
+	 color: black
+ }
+
+ ul#Tab .active{
+    color: #776c6c;
+}
+
+  h2 a:visited{
+	 color: crimson;
+	 font-size: 22pt;
+	 padding-left: -20px;
+ }
+
+ h2 {
+	 color: crimson;
+	 font-size: 22pt;
+	 padding-left: -20px;
+ }
+ 
+ p{
+	 color: #4f4635;
+	 font-family: Garamond, serif;
+	 font-size: 12pt;
+	 padding-left: -20px;
+ }
+
+ li{
+	 padding-left: -20px;
+ }
+
+ a {
+     color: crimson;
+     font-weight: bold;
+ }
