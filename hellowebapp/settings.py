@@ -122,7 +122,7 @@ STATICFILES_DIRS = (
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'amickan1990@gmail.com'
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
