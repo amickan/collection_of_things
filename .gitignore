@@ -79,7 +79,7 @@ target/
 celerybeat-schedule
 
 # dotenv
-.env
+hellowebapp/.env
 
 # virtualenv
 .venv/
@@ -92,3 +92,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# .env file with secret key etc.
+.env

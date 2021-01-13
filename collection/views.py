@@ -4,37 +4,43 @@ from collection.forms import ThingForm, ContactForm
 from collection.models import Thing
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from django.core.mail import send_mail, BadHeaderError
 
 
 # Create your views here.
-def index(request):
-    # number = 6*
-    # thing = "Thing name"
-    things = Thing.objects.all()
-    # things = Thing.objects.filter(name__contains='shiny')
-    # passing the variable to the view
-    return render(request, 'index.html', {
-        'things': things,
-    })
+# def index(request):
+#     things = Thing.objects.all()
+#     # passing the variable to the view
+#     return render(request, 'index.html', {
+#         'things': things,
+#     })
 
+class IndexView(TemplateView):
+    template_name = "index.html"
 
 class AboutView(TemplateView):
     template_name = "about.html"
 
-
 class ContactView(TemplateView):
     template_name = "contact.html"
 
-def thing_detail(request, slug):
-    # grab the object...
-    thing = Thing.objects.get(slug=slug)
-    # and pass to the template
-    return render(request, 'things/thing_detail.html', {
-        'thing': thing,
-    })
+class DetailView(DetailView):
+    model = Thing
+    template_name = 'things/thing_detail.html'
+    context_object_name = 'thing'
 
+    def get_object(self, **kwargs):
+        slug = self.kwargs['slug']
+        return Thing.objects.get(slug=slug)
+
+# def thing_detail(request, slug):
+#     # grab the object...
+#     thing = Thing.objects.get(slug=slug)
+#     # and pass to the template
+#     return render(request, 'things/thing_detail.html', {
+#         'thing': thing,
+#     })
 
 @login_required
 def edit_thing(request, slug):

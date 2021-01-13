@@ -10,10 +10,11 @@ from django.contrib.auth.views import (
 )
 from collection import views
 from collection.backends import MyRegistrationView
-from collection.views import AboutView, ContactView
+from collection.views import AboutView, IndexView, DetailView, ContactView
 
 urlpatterns = (
-    path('', views.index, name='home'),
+    # path('', views.index, name='home'),
+    path('', IndexView.as_view(), name='home'),
     path('about/', AboutView.as_view(), name='about'),
     # path('contact/', ContactView.as_view(), name='contact'),
     path('contact/', views.emailView, name='contact'),
@@ -26,7 +27,8 @@ urlpatterns = (
     #      name='contact'),
     path('things/', RedirectView.as_view(
         pattern_name='browse', permanent=True)),
-    path('things/<slug>/', views.thing_detail, name='thing_detail'),
+    path('things/<slug:slug>/', DetailView.as_view(), name='thing_detail'),
+    # path('things/<slug>/', views.thing_detail, name='thing_detail'),
     path('things/<slug>/edit/', views.edit_thing, name='edit_thing'),
     path('browse/', RedirectView.as_view(
         pattern_name='browse', permanent=True)),
