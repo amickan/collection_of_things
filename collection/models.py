@@ -55,7 +55,7 @@ class Upload(Timestamp):
         if self.image:
             image = Image.open(self.image)
             i_width, i_height = image.size
-            max_size = (1000, 1000)
-        if i_width > 1000:
+            max_size = (500, 500)
+        if i_width > 500:
             image.thumbnail(max_size, Image.ANTIALIAS)
             image.save(self.image.path)
