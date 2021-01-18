@@ -14,4 +14,21 @@
         </a>
         </p>
     {% endif %}
+    {% if social_accounts %}
+        <ul>
+        {% for social_account in social_accounts %}
+{#            {% include 'things/social_accounts_detail.html' %}#}
+            <li>
+                <a href="http://{{ social_account.network }}.com/{{ social_account.username }}" target="_blank">
+                    {{ social_account.network|title }}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% if uploads %}
+        {% for upload in uploads %}
+            <img src="{{ upload.image.url }}" alt="" />
+        {% endfor %}
+    {% endif %}
 {% endblock content %}

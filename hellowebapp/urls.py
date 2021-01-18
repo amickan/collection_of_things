@@ -10,7 +10,22 @@ from django.contrib.auth.views import (
 )
 from collection import views
 from collection.backends import MyRegistrationView
-from collection.views import AboutView, IndexView, DetailView, ContactView
+from collection.views import AboutView, IndexView, DetailView
+from django.contrib.sitemaps.views import sitemap
+from collection.sitemap import (
+ ThingSitemap,
+ StaticSitemap,
+ HomepageSitemap,
+)
+sitemaps = {
+ 'things': ThingSitemap,
+ 'static': StaticSitemap,
+ 'homepage': HomepageSitemap,
+}
+from django.conf import settings
+from django.views.static import serve
+from django.urls import re_path
+
 
 urlpatterns = (
     # path('', views.index, name='home'),
@@ -28,6 +43,7 @@ urlpatterns = (
     path('things/', RedirectView.as_view(
         pattern_name='browse', permanent=True)),
     path('things/<slug:slug>/', DetailView.as_view(), name='thing_detail'),
+    # path('things/<slug:slug>/', DetailViewSocial.as_view(), name='thing_detail'),
     # path('things/<slug>/', views.thing_detail, name='thing_detail'),
     path('things/<slug>/edit/', views.edit_thing, name='edit_thing'),
     path('browse/', RedirectView.as_view(
@@ -65,9 +81,22 @@ urlpatterns = (
          name='registration_register'),
     path('accounts/create_thing/', views.create_thing,
          name='registration_create_thing'),
+    path('things/<slug>/edit/images/', views.edit_thing_uploads,
+         name='edit_thing_uploads'),
     # path('email/', views.emailView,
     #      name='email'),
     path('accounts/', include('registration.backends.simple.urls')),
+    path('delete/<id>/', views.delete_upload, name='delete_upload'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'),
     path('', include('collection.urls')),
     path('admin/', admin.site.urls),
 )
+
+
+if settings.DEBUG:
+    urlpatterns += (
+        re_path(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+    )

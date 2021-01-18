@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -114,11 +115,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, 'collection/static')
 # STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'static'),
 )
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
@@ -130,3 +134,11 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_PORT = env('EMAIL_PORT')
 LOGIN_REDIRECT_URL = "home"
+
+# the email address that the "server emails" will come from
+SERVER_EMAIL = 'app_email@mydomain.com'
+# the email you want these admin emails to go to
+# (can add as many as you like)
+ADMINS = [
+ ('your name', 'me@mydomain.com'),
+]
