@@ -23,6 +23,13 @@
                 </a>
                 <br>
                {{ thing.description }} <br><br>
+                {% if thing.social_accounts %}
+                    <ul>
+                        {% for account in thing.social_accounts.all %}
+                            <li>{{ account.network|title }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
            </td>
         {% empty %}
             <li>Sorry, no results!</li>
