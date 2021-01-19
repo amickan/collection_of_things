@@ -7,6 +7,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView, DetailView
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import mail_admins
+from django.contrib import messages
 
 
 # Create your views here.
@@ -64,6 +65,7 @@ def edit_thing(request, slug):
         if form.is_valid():
             # save the new data
             form.save()
+            messages.success(request, 'Thing details updated.')
             return redirect('thing_detail', slug=thing.slug)
             # otherwise just create the form
     else:
