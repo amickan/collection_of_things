@@ -26,6 +26,7 @@ ALLOWED_HOSTS = ['http://127.0.0.1:8000', '.localhost', '.pythonanywhere.com']
 INSTALLED_APPS = [
     'collection',
     'registration',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -142,3 +143,16 @@ SERVER_EMAIL = 'app_email@mydomain.com'
 ADMINS = [
  ('your name', 'me@mydomain.com'),
 ]
+
+
+REST_FRAMEWORK = {
+     # Use Django's standard 'django.contrib.auth' permissions,
+     # or allow read-only access for unauthenticated users.
+     'DEFAULT_PERMISSION_CLASSES': [
+         # we're going to use this because we're just showing data
+         'rest_framework.permissions.AllowAny',
+         # BUT use this one or another restricted permission if you
+         # update your API to allow update and deleting
+         # 'rest_framework.permissions.IsAuthenticated',
+    ],
+}

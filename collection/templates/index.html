@@ -11,6 +11,7 @@
         {% if user.is_authenticated %}
 {#            <li>If you would like to reset your password, click <a href="{% url 'password_reset' %}">here</a>.</li>#}
             <li>If you would like to change your password, click <a href="{% url 'password_change' %}">here</a>.</li>
+            <li>If you would like to change your email, click <a href="{% url 'edit_email' %}">here</a>.</li>
             <li>When you're done, don't forget to <a href="{%  url 'auth_logout' %}">logout</a>!</li>
         {% else %}
             <li>If you're new here and want to add your own products, register <a href="{%  url 'registration_register' %}">here</a>!</li>

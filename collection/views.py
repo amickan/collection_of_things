@@ -1,6 +1,6 @@
 from django.template.defaultfilters import slugify
 from django.shortcuts import render, redirect
-from collection.forms import ThingForm, ContactForm, ThingUploadForm
+from collection.forms import ThingForm, ContactForm, ThingUploadForm, EditEmailForm
 from collection.models import Thing, Upload
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, HttpResponseRedirect
@@ -8,7 +8,20 @@ from django.views.generic import TemplateView, DetailView
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import mail_admins
 from django.contrib import messages
+from django.http import JsonResponse
+from django.core import serializers
+from django.http import JsonResponse
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from collection.serializers import ThingSerializer
 
+
+
+# def dataview(request, id):
+#     thing = Thing.objects.get(pk=id)
+#     data = serializers.serialize('json', [thing])
+#     return JsonResponse(data, safe=False)
 
 # Create your views here.
 # def index(request):
@@ -183,3 +196,44 @@ def delete_upload(request, id):
     upload.delete()
     # refresh the edit page
     return redirect('edit_thing_uploads', slug=upload.thing.slug)
+
+@login_required
+def edit_email(request):
+    user = request.user
+    form_class = EditEmailForm
+    if request.method == 'POST':
+        form = form_class(data=request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Email address updated.')
+            return redirect('home')
+    else:
+        form = form_class(instance=user)
+    return render(request, 'things/edit_email.html', {
+         'form': form,
+ })
+
+
+@api_view(['GET'])
+def api_thing_list(request):
+     """
+     List all things
+     """
+     if request.method == 'GET':
+         things = Thing.objects.all()
+         serializer = ThingSerializer(things, many=True)
+         return Response(serializer.data)
+
+
+@api_view(['GET'])
+def api_thing_detail(request, id):
+    """
+     Get a specific thing
+    """
+    try:
+        thing = Thing.objects.get(id=id)
+    except Thing.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = ThingSerializer(thing)
+        return Response(serializer.data)

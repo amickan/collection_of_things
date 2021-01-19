@@ -95,3 +95,5 @@ ENV/
 
 # .env file with secret key etc.
 .env
+
+node_modules/
