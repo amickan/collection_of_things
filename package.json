@@ -1,0 +1,27 @@
+{
+  "name": "myhellowebapp",
+  "version": "1.0.0",
+  "description": "collection of things",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amickan/collection_of_things.git"
+  },
+  "author": "Anne Mickan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amickan/collection_of_things/issues"
+  },
+  "homepage": "https://github.com/amickan/collection_of_things#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.2.1",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-postcss": "^9.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.1.0"
+  }
+}
