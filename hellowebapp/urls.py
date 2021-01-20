@@ -10,7 +10,7 @@ from django.contrib.auth.views import (
 )
 from collection import views
 from collection.backends import MyRegistrationView
-from collection.views import AboutView, IndexView, DetailView
+from collection.views import AboutView, IndexView, DetailView, BrowseName
 from django.contrib.sitemaps.views import sitemap
 from collection.sitemap import (
  ThingSitemap,
@@ -49,9 +49,10 @@ urlpatterns = (
     path('browse/', RedirectView.as_view(
         pattern_name='browse', permanent=True)),
     path('browse/name/',
-         views.browse_by_name, name='browse'),
-    path('browse/name/<initial>/',
-         views.browse_by_name, name='browse_by_name'),
+         BrowseName.as_view(), name='browse'),
+    # path('browse/name/<initial>/',
+    #      views.browse_by_name, name='browse_by_name'),
+    path('browse/name/<initial>/', BrowseName.as_view(), name='browse_by_name'),
     path('accounts/password/reset/', PasswordResetView.as_view(),
          name="password_reset"),
     path('accounts/password/reset/done/', PasswordResetDoneView.as_view(),
@@ -87,6 +88,12 @@ urlpatterns = (
 
 if settings.DEBUG:
     import debug_toolbar
+
+    urlpatterns += (
+        re_path(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+    )
     urlpatterns = (
         re_path(r'^__debug__/', include(debug_toolbar.urls)),
                   ) + urlpatterns

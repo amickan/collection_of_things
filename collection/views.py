@@ -1,10 +1,10 @@
 from django.template.defaultfilters import slugify
 from django.shortcuts import render, redirect
 from collection.forms import ThingForm, ContactForm, ThingUploadForm, EditEmailForm
-from collection.models import Thing, Upload
+from collection.models import Social, Thing, Upload
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView, View
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import mail_admins
 from django.contrib import messages
@@ -17,19 +17,7 @@ from rest_framework.response import Response
 from collection.serializers import ThingSerializer
 
 
-
-# def dataview(request, id):
-#     thing = Thing.objects.get(pk=id)
-#     data = serializers.serialize('json', [thing])
-#     return JsonResponse(data, safe=False)
-
 # Create your views here.
-# def index(request):
-#     things = Thing.objects.all()
-#     # passing the variable to the view
-#     return render(request, 'index.html', {
-#         'things': things,
-#     })
 
 class IndexView(TemplateView):
     template_name = "index.html"
@@ -39,7 +27,6 @@ class AboutView(TemplateView):
 
 class ContactView(TemplateView):
     template_name = "contact.html"
-
 
 class DetailView(DetailView):
     model = Thing
@@ -52,14 +39,6 @@ class DetailView(DetailView):
         ctx['social_accounts'] = self.object.social_accounts.all()
         ctx['uploads'] = self.object.uploads.all()
         return ctx
-
-# def thing_detail(request, slug):
-#     # grab the object...
-#     thing = Thing.objects.get(slug=slug)
-#     # and pass to the template
-#     return render(request, 'things/thing_detail.html', {
-#         'thing': thing,
-#     })
 
 @login_required
 def edit_thing(request, slug):
@@ -115,15 +94,16 @@ def create_thing(request):
     })
 
 
-def browse_by_name(request, initial=None):
-    if initial:
-        things = Thing.objects.filter(name__istartswith=initial).order_by('name')
-    else:
-        things = Thing.objects.all().order_by('name')
-    return render(request, 'search/search.html', {
-        'things': things,
-        'initial': initial,
-    })
+class BrowseName(View):
+    def get(self, request, initial=None):
+        if initial:
+            things = Thing.objects.filter(name__istartswith=initial).order_by('name')
+        else:
+            things = Thing.objects.all().order_by('name')
+        return render(request, 'search/search.html', context={
+            'things': things,
+            'initial': initial,
+        })
 
 
 def emailView(request):

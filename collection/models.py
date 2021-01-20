@@ -15,7 +15,7 @@ class Thing(Timestamp):
     name = models.CharField(max_length=255)
     description = models.TextField()
     slug = models.SlugField(unique=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE,
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
                                 blank=True, null=True)
 
     # new helper method
@@ -33,7 +33,7 @@ class Social(models.Model):
     network = models.CharField(max_length=255,
                                choices=SOCIAL_TYPES)
     username = models.CharField(max_length=255)
-    thing = models.ForeignKey(Thing,
+    thing = models.ForeignKey(Thing, null=True, blank=True,
                               on_delete=models.CASCADE, related_name="social_accounts")
 
     class Meta:
@@ -45,7 +45,7 @@ def get_image_path(instance, filename):
 
 
 class Upload(models.Model):
-    thing = models.ForeignKey(Thing,
+    thing = models.ForeignKey(Thing, null=True, blank=True,
         on_delete=models.CASCADE, related_name="uploads")
     image = models.ImageField(upload_to=get_image_path)
 
